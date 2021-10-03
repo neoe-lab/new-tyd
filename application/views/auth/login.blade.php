@@ -44,9 +44,13 @@
 					<div class="account-box">
 						<div class="account-wrapper">
 							<h3 class="account-title">เข้าสู่ระบบ</h3>
-							{{-- <p class="account-subtitle">Access to our dashboard</p> --}}
+							{{-- <p class="account-subtitle">{{$flash}}</p> --}}
+							<p class="account-subtitle">@php
+								$CI = &get_instance();
+								echo $CI->session->flashdata("error");
+							  @endphp</p>
 							<!-- Account Form -->
-							<form action="home/auth" method="post">
+							<form action="auth/validate" method="post">
 								<div class="form-group">
 									<label>ชื่อผู้ใช้</label>
 									<input class="form-control" type="text" name="username">

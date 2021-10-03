@@ -22,24 +22,25 @@ class Home extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
+		$this->load->model('menu_model','menu');
+		check_active_login();
+		// check_access_user();
     }
 
 	public function index()
 	{
-
-        // $data['username'] = 'นายอิควรรณ หะยีดือราเฮง';
-        // $data['title'] = 'โรงพยาบาลทุ่งยางแดง';
-	
-		// $this->theme->views('back.pages.dashboard',$data);
-		$this->theme->views('auth.login');
-
-	}
-
-
-	public function auth(){
-		$username = $this->input->post('username');
-		$password = $this->input->post('password');
-		echo 'hello world';
-		echo $username.$password;
+		// if ($this->session->userdata('admin_login') != 1){
+		// 	$this->session->set_flashdata('error', 'ไม่สิทธิการเข้าถึง');
+        //     redirect('auth', 'refresh');
+		// }
+		// echo '<pre>';
+		// var_dump(check_access_user());
+		// echo '</pre>';
+		// exit;
+		// $data['main_menu'] = main_menu();
+		// $data['sub_menu'] = sub_menu();
+		$data['title'] = 'Home';
+		$this->theme->views('back.pages.home',$data);
+		
 	}
 }
