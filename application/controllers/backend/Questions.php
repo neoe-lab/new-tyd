@@ -9,6 +9,7 @@ class Questions extends CI_Controller {
         parent::__construct();
         $this->load->library('form_validation');
 		$this->load->model('Questions_model','questions');
+		check_active_login();
 
 
     }
@@ -97,19 +98,20 @@ class Questions extends CI_Controller {
     // Show เพื่อนที่ต้องประเมินแบบสมมรรถนะ
     public function random_performance_person(){
         // $by_is = $this->;
-        $data['title'] = 'Person_performance';
+        $data['title'] = 'Person-performance';
         $data['person'] = $this->questions->getrandomPerson(0);
         $this->theme->views('back.pages.questions.random-performance-person',$data);
 
     }
     // show เเบประเมินสมถรรนะ
-    public function questions_performance_person($who_is,$by_is,$classperson){
+    public function questions_performance_person($who_is){
         // echo $who_is;
         // echo $by_is;
         // echo $classperson;
         // $classperson = 2;
-        $data['title'] = 'Questions';
-        $data['title_list'] = $this->questions->gettitles($classperson);
+        $data['who_is'] = $who_is;
+        $data['title'] = 'performance-questions';
+        $data['title_list'] = $this->questions->gettitles();
         $data['questions'] = $this->questions->getQuestion();
         $this->theme->views('back.pages.questions.performance-questions',$data);
     }
@@ -117,14 +119,15 @@ class Questions extends CI_Controller {
     // -------------------------- Show เพื่อนที่ต้องประเมินแบบสมมรรภภาพ ---------------------------
     // Show เพื่อนที่ต้องประเมินแบบสมมรรภภาพ
     public function random_behavior_person(){
-    $data['title'] = 'Person_behavior';
+    $data['title'] = 'Person-behavior';
+    // แสดงคนที่แรนดอมแบบสมรรถภาพ value = 1
     $data['person'] = $this->questions->getrandomPerson(1);
     $this->theme->views('back.pages.questions.random-behavior-person',$data);
 
     }
     public function questions_behavior_person($who_is){
 
-        $data['title'] = 'Questions';
+        $data['title'] = 'behavior-questions';
         $data['who_is'] = $who_is;
         // $data['by_is'] = $this->session->id;
         $data['title_list'] = $this->questions->gettitle_questionbehavior();

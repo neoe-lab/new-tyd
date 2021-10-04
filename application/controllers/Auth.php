@@ -44,7 +44,7 @@ class Auth extends CI_Controller
 				'id' => (int)$data->id,
 				'fullname' => $data->fullname,
 				'username' => (string)$data->username,
-				'class' => (int)$data->class_id,
+				'class_id' => (string)$data->class_id,
 				'permissions' => (int)$data->permission_id,
 				'logged_in' => (bool)true,
 			);

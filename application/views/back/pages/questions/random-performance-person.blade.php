@@ -11,6 +11,10 @@
             <div class="row align-items-center">
                 <div class="col">
                     <h3 class="page-title">แบบประเมินสมรรถนะของเพื่อน</h3>
+                        {{-- @php
+                        $CI = &get_instance();
+                        echo $CI->session->class_id;
+                      @endphp --}}
                     <ul class="breadcrumb">
                         {{-- <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li> --}}
                         {{-- <li class="breadcrumb-item active">Clients</li> --}}
@@ -62,7 +66,7 @@
             <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
                 <div class="profile-widget">
                     <div class="profile-img">
-                        <a href="{{base_url('backend/questions/questions_performance_person/')}}{{$person->who_id.'/'.$person->by_id.'/1'}}" class="avatar"><img alt="" src={{base_url('assets/back/img/profiles/avatar-19.jpg')}}></a>
+                        <a href="{{base_url('backend/questions/questions_performance_person/')}}{{$person->who_id}}" class="avatar"><img alt="" src={{base_url('assets/back/img/profiles/avatar-19.jpg')}}></a>
                     </div>
                     <div class="dropdown profile-action">
                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
@@ -74,7 +78,7 @@
                     <h5 class="user-name m-t-10 mb-0 text-ellipsis"><a href="{{base_url('backend/questions/questions_performance_person/5/4')}}">คะแนน</a></h5>
                     {{-- <div class="text-success">{{($person->totalscore != null ? $person->totalscore : 'ยังไม่ได้ประเมิน')}}</div> --}}
                     <div class="{{($person->active != 0 ? 'text-success' : 'text-danger')}}">{{($person->active != 0 ? 'ประเมินแล้ว' : 'ยังไม่ได้ประเมิน')}}</div>
-                    <a href="" class="btn btn-success btn-sm m-t-10 {{($person->active != 0 ? 'disabled' : '')}}">ทำแบบประเมิน</a>
+                    <a href="{{base_url('backend/questions/questions_performance_person/').$person->who_id}}" class="btn btn-success btn-sm m-t-10 {{($person->active != 0 ? 'disabled' : '')}}">ทำแบบประเมิน</a>
                 </div>
             </div>   
             @endforeach
