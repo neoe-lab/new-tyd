@@ -19,7 +19,7 @@ class Questions_model extends CI_Model {
         case 'C0' : $results= $this->db->query("SELECT * FROM title_list t where t.type_id = 0 AND t.class_id IN(0)"); break;
 		// แบบประเมินพฤติกรรม จริยธรรม
         // case 0 : $results= $this->db->query("SELECT * FROM title_list where type_id = 1"); break;
-        // default : $results = ; break;		
+        default : $results= $this->db->query("SELECT * FROM title_list t where t.type_id = 0 AND t.class_id IN(0)"); break;		
 	}
     return $results;
     }
@@ -47,18 +47,23 @@ class Questions_model extends CI_Model {
        return $results->result();
     }
 
-    public function sentanswersbehavior($data){
+    public function sentanswersbehavior($data,$type_from){
         //  echo '<pre>';
         // print_r($data);
         // echo '</pre>';
+        // echo $data[0]['who_is'];
+        // exit;
         // $this->db->insert_batch();
+        $by_is = $this->session->id;
+        $who_is = $data[0]['who_is'];
         $set = $this->db->insert_batch('answers', $data);
-        $updata = $this->db->query("UPDATE random_person SET active = '1' WHERE type_id = 0 AND who_id = 4 AND by_id = 2 AND time_id = 1");
+        $updata = $this->db->query("UPDATE random_person SET active = '1' WHERE type_id = $type_from AND who_id = $who_is AND by_id = $by_is AND time_id = 1");
         if($set && $updata){
-            echo 'success insert';
+            $results = true;
         }else{
-            echo 'fail insert';
+            $results = false;
         }
+        return $results;
 
     }
 }

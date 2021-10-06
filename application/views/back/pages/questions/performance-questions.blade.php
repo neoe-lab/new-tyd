@@ -28,7 +28,8 @@
                                 และให้ประเมินคะแนนถึงสีที่กำหนดเท่านั้น</p>
                         </div>
                         <div class="card-body">
-                            <form class="was-validated" action="{{ base_url('backend/questions/answers') }}" method="POST">
+                            <form class="was-validated" action="{{ base_url('backend/questions/answersperformance') }}"
+                                method="POST">
                                 @php
                                     $i = 0;
                                 @endphp
@@ -36,6 +37,7 @@
                                 @foreach ($title_list->result() as $titles)
                                     @if ($titles->parent_id == 0)
                                         <div class="from-group">
+                                            <hr>
                                             <h4><b>{{ $titles->title }}</b></h4>
                                         </div>
                                         {{-- แสดงคำถามในกรณีที่ไม่มีหัวข้อย่อย --}}
@@ -43,7 +45,7 @@
                                             @if ($question->title_id == $titles->id)
                                                 <div class="form-group">
                                                     <div class="custom-control">
-                                                    <label>{{ $question->question }}</label>
+                                                        <label>{{ $question->question }}</label>
 
                                                     </div>
 
@@ -58,26 +60,29 @@
                                                                 value="{{ $titles->type_id }}">
                                                             <input type="hidden" name="question_number[{{ $i }}]"
                                                                 value="{{ $question->id }}">
-                                                            
-                                                            <input type="radio" value="1" name="answers[{{ $i }}]" required>
+
+                                                            <input type="radio" value="0.1"
+                                                                name="answers[{{ $i }}]" required>
                                                             1
-                                                            <input type="radio" value="2" name="answers[{{ $i }}]">
+                                                            <input type="radio" value="0.2"
+                                                                name="answers[{{ $i }}]">
                                                             2
-                                                            <input type="radio" value="3" name="answers[{{ $i }}]">
+                                                            <input type="radio" value="0.3"
+                                                                name="answers[{{ $i }}]">
                                                             3
-                                                            <input type="radio" value="4"
+                                                            <input type="radio" value="0.4"
                                                                 name="answers[{{ $i }}]"> 4
-                                                            <input type="radio" value="5"
+                                                            <input type="radio" value="0.5"
                                                                 name="answers[{{ $i }}]"> 5
-                                                            <input type="radio" value="6"
+                                                            <input type="radio" value="0.6"
                                                                 name="answers[{{ $i }}]"> 6
-                                                            <input type="radio" value="7"
+                                                            <input type="radio" value="0.7"
                                                                 name="answers[{{ $i }}]"> 7
-                                                            <input type="radio" value="8"
+                                                            <input type="radio" value="0.8"
                                                                 name="answers[{{ $i }}]"> 8
-                                                            <input type="radio" value="9"
+                                                            <input type="radio" value="0.9"
                                                                 name="answers[{{ $i }}]"> 9
-                                                            <input type="radio" value="10"
+                                                            <input type="radio" value="1"
                                                                 name="answers[{{ $i }}]"> 10
                                                         </label>
                                                     </div>
@@ -87,11 +92,10 @@
                                     @endif
 
 
-                                    {{-- แสดงหัวข้อย่อย --}}
+                                    {{-- แสดงคำถามที่มีหัวข้อย่อย --}}
                                     @foreach ($title_list->result() as $sub_title)
                                         @if ($sub_title->parent_id == $titles->id)
                                             <div class="from-group">
-                                                <hr>
                                                 <hr>
                                                 <b>
                                                     <p>{{ $sub_title->title }}</p>
@@ -106,35 +110,65 @@
                                                             <label>{{ $question->question }}</label>
                                                         </div>
                                                         <div class="custom-control radio">
-                                                            <label>
-                                                                @php
-                                                                    $i++;
-                                                                @endphp
                                                                 {{-- <input type="hidden" name="type_form[{{$i}}]" value="{{$sub_title->type_id}}"> --}}
+                                                            <label>
                                                                 <input type="hidden"
                                                                     name="question_number[{{ $i }}]"
                                                                     value="{{ $question->id }}">
-                                                                <input type="radio" value="1"
+                                                            </label>
+                                                            <label>
+                                                                <input type="hidden" name="who_is[]"
+                                                                    value="{{ $who_is }}">
+                                                            </label>
+                                                            <label>
+                                                                <input type="hidden"
+                                                                    name="question_number[{{ $i }}]"
+                                                                    value="{{ $question->id }}">
+                                                            </label>
+                                                            
+                                                            <label>
+                                                                <input type="radio" value="0.1"
                                                                     name="answers[{{ $i }}]" required> 1
-                                                                <input type="radio" value="2"
+                                                            </label>
+                                                            <label>
+                                                                <input type="radio" value="0.2"
                                                                     name="answers[{{ $i }}]"> 2
-                                                                <input type="radio" value="3"
+                                                            </label>
+                                                            <label>
+                                                                <input type="radio" value="0.3"
                                                                     name="answers[{{ $i }}]"> 3
-                                                                <input type="radio" value="4"
+                                                            </label>
+                                                            <label>
+                                                                <input type="radio" value="0.4"
                                                                     name="answers[{{ $i }}]"> 4
-                                                                <input type="radio" value="5"
+                                                            </label>
+                                                            <label>
+                                                                <input type="radio" value="0.5"
                                                                     name="answers[{{ $i }}]"> 5
-                                                                <input type="radio" value="6"
+                                                            </label>
+                                                            <label>
+                                                                <input type="radio" value="0.6"
                                                                     name="answers[{{ $i }}]"> 6
-                                                                <input type="radio" value="7"
+                                                            </label>
+                                                            <label>
+                                                                <input type="radio" value="0.7"
                                                                     name="answers[{{ $i }}]"> 7
-                                                                <input type="radio" value="8"
+                                                            </label>
+                                                            <label>
+                                                                <input type="radio" value="0.8"
                                                                     name="answers[{{ $i }}]"> 8
-                                                                <input type="radio" value="9"
+                                                            </label>
+                                                            <label>
+                                                                <input type="radio" value="0.9"
                                                                     name="answers[{{ $i }}]"> 9
-                                                                <input type="radio" value="10"
+                                                            </label>
+                                                            <label>
+                                                                <input type="radio" value="1"
                                                                     name="answers[{{ $i }}]"> 10
                                                             </label>
+                                                            @php
+                                                                $i++;
+                                                            @endphp
                                                         </div>
                                                     </div>
                                                 @endif
@@ -158,12 +192,12 @@
         </div>
     </div>
 
-    
+
     <!-- /Page Wrapper -->
 @endsection
 
 @section('script')
     <!-- Form Validation JS -->
-    <script src={{ base_url('assets/back/js/form-validation.js')}}> </script>
-    
+    <script src={{ base_url('assets/back/js/form-validation.js') }}> </script>
+
 @endsection

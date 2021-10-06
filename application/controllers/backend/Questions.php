@@ -99,6 +99,9 @@ class Questions extends CI_Controller {
     public function random_performance_person(){
         // $by_is = $this->;
         $data['title'] = 'Person-performance';
+        // ====== แสดงหัวข้อและคำถามของสมรรถนะ
+        $data['title_list'] = $this->questions->gettitles();
+        $data['questions'] = $this->questions->getQuestion();
         $data['person'] = $this->questions->getrandomPerson(0);
         $this->theme->views('back.pages.questions.random-performance-person',$data);
 
@@ -115,6 +118,32 @@ class Questions extends CI_Controller {
         $data['questions'] = $this->questions->getQuestion();
         $this->theme->views('back.pages.questions.performance-questions',$data);
     }
+    public function answersperformance(){
+        $type_form = 0; //แบบประเมินสมรรภนะ
+        $who_is = $this->input->post('who_is');
+        $by_is = $this->session->id;
+        $answers = $this->input->post('answers');
+        $questions_no = $this->input->post('question_number');
+        for($i = 0;$i<count($answers);$i++){
+            $data[] = [
+                'type_id' =>$type_form,
+                'question_id' => $questions_no[$i],
+                'time_id' => 1,
+                'score' => $answers[$i],// ปัญหานี้แก้โดนเราให้ตอบทุกข้อถ้าไม่ตอบให้แจ้งเตือน
+                // 'who_is' => $who_is[$i], // id ว่าประเมินให้ใคร
+                'who_is' => $who_is, // id ว่าประเมินให้ใคร
+                'by_is' => $by_is, //id ว่าใครประเมินให้
+                'updated_time' => date('Y-m-d H:i:s')
+            ];         
+        }
+        $result =$this->questions->sentanswersbehavior($data,$type_form);
+        if($result){
+            redirect('backend/questions/random_performance_person');
+        }
+        // echo '<pre>';
+        // print_r($data);
+        // echo '</pre>';
+    }
     // --------------------- end Show เพื่อนที่ต้องประเมินแบบสมมรรถนะ ---------------------------
     // -------------------------- Show เพื่อนที่ต้องประเมินแบบสมมรรภภาพ ---------------------------
     // Show เพื่อนที่ต้องประเมินแบบสมมรรภภาพ
@@ -122,6 +151,9 @@ class Questions extends CI_Controller {
     $data['title'] = 'Person-behavior';
     // แสดงคนที่แรนดอมแบบสมรรถภาพ value = 1
     $data['person'] = $this->questions->getrandomPerson(1);
+    //--------- > ดึงคำถามและหัวข้อ < ------------------
+    $data['title_list'] = $this->questions->gettitle_questionbehavior();
+    $data['questions'] = $this->questions->getQuestion();
     $this->theme->views('back.pages.questions.random-behavior-person',$data);
 
     }
@@ -135,7 +167,7 @@ class Questions extends CI_Controller {
         $this->theme->views('back.pages.questions.behavior-questions',$data);
     }
     public function answersbehavior(){
-        $type_form = 1; //แบบประเมินสมรรภนะ
+        $type_form = 1; //แบบประเมินสมรรถภาพ
         $who_is = $this->input->post('who_is');
         $by_is = $this->session->id;
         $answers = $this->input->post('answers');
@@ -146,14 +178,37 @@ class Questions extends CI_Controller {
                 'question_id' => $questions_no[$i],
                 'time_id' => 1,
                 'score' => $answers[$i],// ปัญหานี้แก้โดนเราให้ตอบทุกข้อถ้าไม่ตอบให้แจ้งเตือน
-                'who_is' => $who_is[$i], // id ว่าประเมินให้ใคร
+                // 'who_is' => $who_is[$i], // id ว่าประเมินให้ใคร
+                'who_is' => $who_is, // id ว่าประเมินให้ใคร
                 'by_is' => $by_is, //id ว่าใครประเมินให้
                 'updated_time' => date('Y-m-d H:i:s')
             ];         
         }
-        $this->questions->sentanswersbehavior($data);
+        $result =$this->questions->sentanswersbehavior($data,$type_form);
+        if($result){
+            redirect('backend/questions/random_behavior_person');
+        }
         // echo '<pre>';
         // print_r($data);
         // echo '</pre>';
+    }
+// ----------------------------------------------------------------------------------------------------------
+
+    // แสดงแบบประเมินสมรรถภาพของตนเอง
+    public function get_behavior_person(){
+        $data['title'] = 'Person-behavior';
+        // แสดงคนที่แรนดอมแบบสมรรถภาพ value = 1
+        $data['person'] = $this->questions->getrandomPerson(1);
+        $this->theme->views('back.pages.questions.one-behavior',$data);
+    
+    }
+
+    // แสดงแบบประเมินสมรรถนะของตนเอง
+    public function get_proformance_person(){
+        $data['title'] = 'Person-behavior';
+        // แสดงคนที่แรนดอมแบบสมรรถภาพ value = 1
+        $data['person'] = $this->questions->getrandomPerson(1);
+        $this->theme->views('back.pages.questions.one-behavior',$data);
+    
     }
 }

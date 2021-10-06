@@ -1,5 +1,8 @@
 @extends('back.layouts.app')
 @section('content')
+    @php
+    $ci = &get_instance();
+    @endphp
     	<!-- Page Wrapper -->
         <div class="page-wrapper">
 			
@@ -33,7 +36,7 @@
                                         <div class="row">
                                             <div class="col-md-5">
                                                 <div class="profile-info-left">
-                                                    <h3 class="user-name m-t-0 mb-0">นายอิควรรณ หะยีดือราเฮง</h3>
+                                                    <h3 class="user-name m-t-0 mb-0">{{$ci->session->fullname}}</h3>
                                                     <h6 class="text-muted">UI/UX Design Team</h6>
                                                     <small class="text-muted">Web Designer</small>
                                                     {{-- <div class="staff-id">Employee ID : FT-0001</div> --}}
