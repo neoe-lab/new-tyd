@@ -195,10 +195,10 @@
                                                     @foreach ($questions->result() as $question)
                                                         @if ($question->title_id == $sub_title->id)
                                                             <div class="form-group">
-                                                                <div class="custom-control">
+                                                                <div class="">
                                                                     <label>{{ $question->question }}</label>
                                                                 </div>
-                                                                <div class="custom-control radio">
+                                                                <div class="radio">
                                                                     {{-- <input type="hidden" name="type_form[{{$i}}]" value="{{$sub_title->type_id}}"> --}}
                                                                 <label>
                                                                     <input type="hidden"
